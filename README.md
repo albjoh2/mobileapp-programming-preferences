@@ -1,6 +1,14 @@
 
 # Rapport
 
+In MainActivity: Read data from Shared Preferences
+Create a new screen called SecondActivity that can be opened from MainActivity
+In SecondActivity: Write data to Shared Preferences using EditText
+When closing SecondActivity the data written should be visible in MainActivity
+Hint: Read data from Shared Preferences in `onResume` instead of in `onCreate`
+Write a short report where you explain the things that you have done
+Upload all artifacts described in the assignment requirements
+
 **Skriv din rapport här!**
 
 _Du kan ta bort all text som finns sedan tidigare_.
