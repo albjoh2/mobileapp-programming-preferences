@@ -46,6 +46,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        // Get a reference to the shared preference
+        myPreferenceRef = getSharedPreferences("MyPreferenceName", MODE_PRIVATE);
+        myPreferenceEditor = myPreferenceRef.edit();
+
         // Display preferences
         TextView prefTextRef=new TextView(this);
         prefTextRef=(TextView)findViewById(R.id.prefText);
