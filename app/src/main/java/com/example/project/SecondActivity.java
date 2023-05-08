@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 public class SecondActivity extends AppCompatActivity {
 
-    // in My MainActivity class
     private SharedPreferences myPreferenceRef;
     private SharedPreferences.Editor myPreferenceEditor;
 
@@ -19,9 +18,6 @@ public class SecondActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
-        // In onCreate()
-        myPreferenceRef = getPreferences(MODE_PRIVATE);
-        myPreferenceEditor = myPreferenceRef.edit();
 
         // Get a reference to the shared preference
         myPreferenceRef = getSharedPreferences("MyPreferenceName", MODE_PRIVATE);

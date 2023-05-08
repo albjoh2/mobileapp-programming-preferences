@@ -1,50 +1,57 @@
 
 # Rapport
 
-In MainActivity: Read data from Shared Preferences
-Create a new screen called SecondActivity that can be opened from MainActivity
-In SecondActivity: Write data to Shared Preferences using EditText
-When closing SecondActivity the data written should be visible in MainActivity
-Hint: Read data from Shared Preferences in `onResume` instead of in `onCreate`
-Write a short report where you explain the things that you have done
-Upload all artifacts described in the assignment requirements
+En variabel med SharedPreferences och dess editor skapas i MainActivity. 
+I onCreate metoden skapas referenser till SharedPreferens och dess editor. En referens till
+textelementet som ska skriva ut texten skapas genom findViewById och texten på elementet sätts
+till värdet på MyAppPreferenceString som ligger i sharedpreferenses. Samma sak händer i onResume
+metoden.
 
-**Skriv din rapport här!**
+        // Get a reference to the shared preference
+        myPreferenceRef = getSharedPreferences("MyPreferenceName", MODE_PRIVATE);
+        myPreferenceEditor = myPreferenceRef.edit();
 
-_Du kan ta bort all text som finns sedan tidigare_.
+        // Display preferences
+        TextView prefTextRef=new TextView(this);
+        prefTextRef=(TextView)findViewById(R.id.prefText);
+        prefTextRef.setText(myPreferenceRef.getString("MyAppPreferenceString", "No preference found."));
 
-## Följande grundsyn gäller dugga-svar:
+En andra screen skapas där användaren kan ändra strängen i shared preferenses. En knapp skapas
+på main skärmen som för över användare till skärm 2 då man klickar.
 
-- Ett kortfattat svar är att föredra. Svar som är längre än en sida text (skärmdumpar och programkod exkluderat) är onödigt långt.
-- Svaret skall ha minst en snutt programkod.
-- Svaret skall inkludera en kort övergripande förklarande text som redogör för vad respektive snutt programkod gör eller som svarar på annan teorifråga.
-- Svaret skall ha minst en skärmdump. Skärmdumpar skall illustrera exekvering av relevant programkod. Eventuell text i skärmdumpar måste vara läsbar.
-- I de fall detta efterfrågas, dela upp delar av ditt svar i för- och nackdelar. Dina för- respektive nackdelar skall vara i form av punktlistor med kortare stycken (3-4 meningar).
+        Button button = findViewById(R.id.button);
+        final Intent intent = new Intent(MainActivity.this, SecondActivity.class);
 
-Programkod ska se ut som exemplet nedan. Koden måste vara korrekt indenterad då den blir lättare att läsa vilket gör det lättare att hitta syntaktiska fel.
+        button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                startActivity(intent);
+            }
+        });
 
-```
-function errorCallback(error) {
-    switch(error.code) {
-        case error.PERMISSION_DENIED:
-            // Geolocation API stöds inte, gör något
-            break;
-        case error.POSITION_UNAVAILABLE:
-            // Misslyckat positionsanrop, gör något
-            break;
-        case error.UNKNOWN_ERROR:
-            // Okänt fel, gör något
-            break;
-    }
-}
-```
+I second activity klassen skapas på samma sätt som i main referenser till SharedPreferences i 
+onCreate metoden. Sedan finns en metod som körs då användaren trycker sparaknappen i sin view.
+Denna metod hämtar texten i editText elementet och sätter MyAppPreferenceString till samma värde.
+Värdet sparas och värdet i editText sätts till ett tomt värde.
 
-Bilder läggs i samma mapp som markdown-filen.
 
-![](android.png)
+        EditText newPrefText=new EditText(this);
+        newPrefText=(EditText)findViewById(R.id.settingseditview);
 
-Läs gärna:
+        // Store the new preference
+        myPreferenceEditor.putString("MyAppPreferenceString", newPrefText.getText().toString());
+        myPreferenceEditor.apply();
 
-- Boulos, M.N.K., Warren, J., Gong, J. & Yue, P. (2010) Web GIS in practice VIII: HTML5 and the canvas element for interactive online mapping. International journal of health geographics 9, 14. Shin, Y. &
-- Wunsche, B.C. (2013) A smartphone-based golf simulation exercise game for supporting arthritis patients. 2013 28th International Conference of Image and Vision Computing New Zealand (IVCNZ), IEEE, pp. 459–464.
-- Wohlin, C., Runeson, P., Höst, M., Ohlsson, M.C., Regnell, B., Wesslén, A. (2012) Experimentation in Software Engineering, Berlin, Heidelberg: Springer Berlin Heidelberg.
+        // Clear the EditText
+        newPrefText.setText("");
+
+Slutresultatet:
+
+Sida 1:
+![](page1.png)
+
+Sida 2:
+![](page2.png)
+
+Åter till sida 1:
+![](page1again.png)
